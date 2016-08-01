@@ -1,4 +1,4 @@
-<h1> New Link: </h1>
+<h1> Edit Link: </h1>
 
 <% if @link.errors.any? %>
   <div id='error_explanation'>
@@ -12,7 +12,7 @@
   </div>
 <% end %>
 
-<%= form_tag '/links', method: 'post' do %>
+<%= form_tag '/links/' + @link.id.to_s, method: 'patch' do %>
   <div  class="form-group">
     <%= label_tag :slug %>
     <%= text_field_tag :slug, @link.slug, class: 'form-control' %>
@@ -22,6 +22,6 @@
     <%= text_field_tag :target_url, @link.target_url, class: 'form-control' %>
   </div>
   <div>
-    <%= submit_tag 'Add URL', class: "btn btn-default" %>
+    <%= submit_tag 'Update URL', class: "btn btn-default" %>
   </div>
 <% end %>
