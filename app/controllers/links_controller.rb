@@ -1,6 +1,6 @@
 class LinksController < ApplicationController
   def index
-    @links = Link.all
+    @links = Link.all.where(user_id: current_user.id)
   end
 
   def new
@@ -24,11 +24,18 @@ class LinksController < ApplicationController
   end
 
   def show
-    @link = Link.find_by(id: params[:id])
+    @link = Link.find_by(id: params[:id], user_id: current_user.id)
+
+    unless @link
+      flash[:notice] = 'You cannot view this link.'
+    end
   end
 
   def edit
-    @link = Link.find_by(id: params[:id])
+    @link = Link.find_by(id: params[:id], user_id: current_user.id)
+    unless @link
+      flash[:notice] = 'You cannot view this link.'
+    end
   end
 
   def update 
@@ -38,7 +45,6 @@ class LinksController < ApplicationController
       slug: params[:slug],
       target_url: params[:target_url],
       user_id: current_user.id)
-      puts '*' * 10
       @link.standardize_target_url!
 
       redirect_to '/links'

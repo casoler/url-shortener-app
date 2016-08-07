@@ -1,23 +1,25 @@
 <h1>Your links</h1>
 
-<table>
-  <tr>
-    <th>Slug</th>
-    <th>Target URL</th>
-    <th>Created At</th>
-  </tr>
-  <% @links.each do |link| %>
+<div> 
+  <table>
     <tr>
-      <td><%= link_to link.slug, '/visits?link_id=' + link.id.to_s, method: :post %></td>
-      <td><%= link.target_url %></td>
-      <td><%= link.created_at %></td>
-      <td><%= link_to 'Show Visits', '/links/' + link.id.to_s %></td>
-      <td><%= link_to 'Edit', '/links/' + link.id.to_s + '/edit' %></td>
-      <td><%= link_to 'Destroy', '/links/' + link.id.to_s, method: :delete %></td>
-
-      
+      <th>Slug</th>
+      <th>Target URL</th>
+      <th>Created At</th>
     </tr>
-  <% end %>
-<table>
+    <% @links.each do |link| %>
+      <div class='row'>
+        <tr>
+          <td><%= link_to link.slug, '/visits?link_id=' + link.id.to_s, method: :post, target: "_blank" %></td>
+          <td><%= link.target_url %></td>
+          <td><%= link.created_at %></td>
+          <td><%= link_to ' Show Visits', '/links/' + link.id.to_s %></td>
+          <td><%= link_to ' Edit ', '/links/' + link.id.to_s + '/edit' %></td>
+          <td><%= link_to ' Destroy', '/links/' + link.id.to_s, method: :delete %></td>
+        </tr>
+      </div>
+    <% end %>
+  </table>
+</div>
 
 <%= link_to 'Create a new link', '/links/new' %>
